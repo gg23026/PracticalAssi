@@ -1,9 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Mači</h1>
-    <div class="table-container">
-        <table>
+    <div class="container">
+        <h1>Mači</h1>
+
+        <!-- Filter form -->
+        <form method="GET" action="{{ route('maci.index') }}">
+            <div class="form-group">
+                <label for="komanda">Komandas Nosaukums</label>
+                <input type="text" id="komanda" name="komanda" class="form-control" value="{{ request('komanda') }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrēt</button>
+        </form>
+
+        <!-- Table -->
+        <table class="table">
             <thead>
                 <tr>
                     <th>Mača ID</th>

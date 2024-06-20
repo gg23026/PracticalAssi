@@ -14,12 +14,23 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'home']);
 
-Route::get('/komandas', [HomeController::class, 'indexKomandas']);
-Route::get('/speletaji', [HomeController::class, 'indexSpeletaji']);
-Route::get('/turniri', [HomeController::class, 'indexTurniri']);
-Route::get('/maci', [HomeController::class, 'indexMaci']);
-Route::get('/speles', [HomeController::class, 'indexSpeles']);
-Route::get('/statistika', [HomeController::class, 'indexStatistika']);
+// Komandas routes
+Route::get('/komandas', [KomandaController::class, 'index'])->name('komandas.index');
+
+// Spēlētāji routes
+Route::get('/speletaji', [SpeletajsController::class, 'index'])->name('speletaji.index');
+
+// Turnīri routes
+Route::get('/turniri', [TurnirsController::class, 'index'])->name('turniri.index');
+
+// Mači routes
+Route::get('/maci', [MacsController::class, 'index'])->name('maci.index');
+
+// Spēles routes
+Route::get('/speles', [SpelesController::class, 'index'])->name('speles.index');
+
+// Statistika routes
+Route::get('/statistika', [StatistikaController::class, 'index'])->name('statistika.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
