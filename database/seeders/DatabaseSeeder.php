@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             MaciTableSeeder::class,
             SpelesTableSeeder::class,
             StatistikaTableSeeder::class,
+            AdminSeeder::class,
         ]);
         User::factory()->create([
             'name' => 'Test User',

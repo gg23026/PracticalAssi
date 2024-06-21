@@ -12,6 +12,8 @@ use App\Http\Controllers\SpelesController;
 use App\Http\Controllers\StatistikaController;
 use App\Http\Controllers\HomeController;
 
+
+
 Route::get('/', [HomeController::class, 'home']);
 
 // Komandas routes
