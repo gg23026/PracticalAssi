@@ -29,6 +29,12 @@ class SpeletajsController extends Controller
             'speletaji' => $speletaji->get(),
         ]);
     }
+
+    public function show($id)
+{
+    $speletajs = Speletajs::findOrFail($id);
+    return view('speletaji.show', compact('speletajs'));
+}
 }
 
 

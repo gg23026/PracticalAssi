@@ -30,6 +30,12 @@ class KomandaController extends Controller
             'komandas' => $komandas->get(),
         ]);
     }
+
+    public function show($id)
+    {
+        $komanda = Komanda::findOrFail($id);
+        return view('komandas.show', compact('komanda'));
+    }
 }
 
 

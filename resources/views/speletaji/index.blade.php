@@ -38,7 +38,9 @@
                         <td>{{ $speletajs->SpeletajsID }}</td>
                         <td>{{ $speletajs->Vards }}</td>
                         <td>{{ $speletajs->Uzvards }}</td>
-                        <td>{{ $speletajs->Lietotajvards }}</td>
+                        <td>
+                            <a href="{{ route('speletaji.show', $speletajs->SpeletajsID) }}">{{ $speletajs->Lietotajvards }}</a>
+                        </td>
                         <td>{{ $speletajs->KomandasID }}</td>
                         <td>{{ $speletajs->Rangs }}</td>
                     </tr>
@@ -47,5 +49,6 @@
         </table>
     </div>
 @endsection
+
 
 

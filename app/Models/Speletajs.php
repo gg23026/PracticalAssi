@@ -16,7 +16,8 @@ class Speletajs extends Model
         'Uzvards',
         'Lietotajvards',
         'KomandasID',
-        'Rangs'
+        'Rangs',
+        'apraksts'
     ];
 
     public function komanda()

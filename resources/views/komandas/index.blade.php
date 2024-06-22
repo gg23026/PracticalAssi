@@ -34,7 +34,7 @@
                 @foreach ($komandas as $komanda)
                     <tr>
                         <td>{{ $komanda->KomandasID }}</td>
-                        <td>{{ $komanda->Nosaukums }}</td>
+                        <td><a href="{{ route('komandas.show', $komanda->KomandasID) }}">{{ $komanda->Nosaukums }}</a></td>
                         <td>{{ $komanda->Valsts }}</td>
                         <td>{{ $komanda->Rangs }}</td>
                     </tr>
@@ -43,5 +43,6 @@
         </table>
     </div>
 @endsection
+
 
 

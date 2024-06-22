@@ -44,5 +44,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::get('/komandas', [KomandaController::class, 'index'])->name('komandas.index');
+Route::get('/komandas/{id}', [KomandaController::class, 'show'])->name('komandas.show');
+
+
+Route::get('/speletaji', [SpeletajsController::class, 'index'])->name('speletaji.index');
+Route::get('/speletaji/{id}', [SpeletajsController::class, 'show'])->name('speletaji.show');
+
+
 require __DIR__.'/auth.php';
 

@@ -8,7 +8,9 @@ class Komanda extends Model
 {
     use HasFactory;
 
+    protected $table = 'komandas';
     protected $primaryKey = 'KomandasID';
+    protected $fillable = ['Nosaukums', 'IzveidesDatums', 'Valsts', 'Rangs', 'apraksts',];
 
     public function speletaji()
     {
