@@ -1,40 +1,39 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Speletajs;
 use Illuminate\Http\Request;
+use App\Models\Speletajs;
 
 class SpeletajsController extends Controller
 {
     public function index(Request $request)
     {
-        $speletaji = Speletajs::query();
+        $query = Speletajs::query();
 
-        // Filtrēšana pēc komandas ID
-        if ($request->has('team_id') && $request->team_id != null) {
-            $speletaji->where('KomandasID', $request->team_id);
+        if ($request->filled('team_id')) {
+            $query->where('KomandasID', $request->team_id);
         }
 
-        // Filtrēšana pēc minimālā ranga
-        if ($request->has('rank_min') && $request->rank_min != null) {
-            $speletaji->where('Rangs', '>=', $request->rank_min);
+        if ($request->filled('rank_min')) {
+            $query->where('Rangs', '>=', $request->rank_min);
         }
 
-        // Filtrēšana pēc maksimālā ranga
-        if ($request->has('rank_max') && $request->rank_max != null) {
-            $speletaji->where('Rangs', '<=', $request->rank_max);
+        if ($request->filled('rank_max')) {
+            $query->where('Rangs', '<=', $request->rank_max);
         }
 
-        return view('speletaji.index', [
-            'speletaji' => $speletaji->get(),
-        ]);
+        $speletaji = $query->get();
+
+        return view('speletaji.index', compact('speletaji'));
     }
 
     public function show($id)
-{
-    $speletajs = Speletajs::findOrFail($id);
-    return view('speletaji.show', compact('speletajs'));
+    {
+        $speletajs = Speletajs::findOrFail($id);
+        return view('speletaji.show', compact('speletajs'));
+    }
 }
-}
+
 
 

@@ -24,6 +24,10 @@ class Speletajs extends Model
     {
         return $this->belongsTo(Komanda::class, 'KomandasID', 'KomandasID');
     }
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }
 
 

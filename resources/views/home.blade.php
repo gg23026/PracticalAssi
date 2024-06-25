@@ -70,6 +70,16 @@
         <a href="{{ url('/maci') }}">Mači</a>
         <a href="{{ url('/speles') }}">Spēles</a>
         <a href="{{ url('/statistika') }}">Statistika</a>
+        @guest
+            <a href="{{ route('login') }}" class="btn btn-secondary">Login</a>
+            <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
+        @else
+            <a href="#" class="btn btn-secondary">{{ Auth::user()->name }}</a>
+            <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                @csrf
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        @endguest
     </div>
     
 

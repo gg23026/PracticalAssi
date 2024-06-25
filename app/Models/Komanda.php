@@ -31,4 +31,8 @@ class Komanda extends Model
     {
         return $this->hasMany(Statistika::class, 'KomandasID', 'KomandasID');
     }
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }

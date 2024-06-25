@@ -2,33 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Komanda;
 use Illuminate\Http\Request;
+use App\Models\Komanda;
 
 class KomandaController extends Controller
 {
     public function index(Request $request)
     {
-        $komandas = Komanda::query();
+        $query = Komanda::query();
 
-        // Filtrēšana pēc valsts
-        if ($request->has('country') && $request->country != null) {
-            $komandas->where('Valsts', 'like', '%' . $request->country . '%');
+        if ($request->filled('country')) {
+            $query->where('Valsts', $request->country);
         }
 
-        // Filtrēšana pēc minimālā ranga
-        if ($request->has('rank_min') && $request->rank_min != null) {
-            $komandas->where('Rangs', '>=', $request->rank_min);
+        if ($request->filled('rank_min')) {
+            $query->where('Rangs', '>=', $request->rank_min);
         }
 
-        // Filtrēšana pēc maksimālā ranga
-        if ($request->has('rank_max') && $request->rank_max != null) {
-            $komandas->where('Rangs', '<=', $request->rank_max);
+        if ($request->filled('rank_max')) {
+            $query->where('Rangs', '<=', $request->rank_max);
         }
 
-        return view('komandas.index', [
-            'komandas' => $komandas->get(),
-        ]);
+        $komandas = $query->get();
+
+        return view('komandas.index', compact('komandas'));
     }
 
     public function show($id)
@@ -37,6 +34,7 @@ class KomandaController extends Controller
         return view('komandas.show', compact('komanda'));
     }
 }
+
 
 
 

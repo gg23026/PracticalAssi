@@ -11,15 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Drop the table if it exists
+        Schema::dropIfExists('password_reset_tokens');
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->tinyInteger('is_admin')->default(0); // Add this line
+            $table->unsignedBigInteger('role_id')->default(2); // Default role_id
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -48,4 +53,6 @@ return new class extends Migration
         Schema::dropIfExists('sessions');
     }
 };
+
+
 

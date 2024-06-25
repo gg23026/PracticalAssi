@@ -1,7 +1,6 @@
 <?php
 
-
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KomandaController;
@@ -11,16 +10,17 @@ use App\Http\Controllers\MacsController;
 use App\Http\Controllers\SpelesController;
 use App\Http\Controllers\StatistikaController;
 use App\Http\Controllers\HomeController;
-
-
+use App\Http\Controllers\CommentController;
 
 Route::get('/', [HomeController::class, 'home']);
 
 // Komandas routes
 Route::get('/komandas', [KomandaController::class, 'index'])->name('komandas.index');
+Route::get('/komandas/{id}', [KomandaController::class, 'show'])->name('komandas.show');
 
 // Spēlētāji routes
 Route::get('/speletaji', [SpeletajsController::class, 'index'])->name('speletaji.index');
+Route::get('/speletaji/{id}', [SpeletajsController::class, 'show'])->name('speletaji.show');
 
 // Turnīri routes
 Route::get('/turniri', [TurnirsController::class, 'index'])->name('turniri.index');
@@ -38,20 +38,17 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::middleware(['auth'])->group(function () {
+    Route::resource('komandas', KomandaController::class);
+    Route::resource('speletaji', SpeletajsController::class);
+    Route::post('comment/{type}/{id}', [CommentController::class, 'store'])->name('comment.store');
 });
 
-
-Route::get('/komandas', [KomandaController::class, 'index'])->name('komandas.index');
-Route::get('/komandas/{id}', [KomandaController::class, 'show'])->name('komandas.show');
-
-
-Route::get('/speletaji', [SpeletajsController::class, 'index'])->name('speletaji.index');
-Route::get('/speletaji/{id}', [SpeletajsController::class, 'show'])->name('speletaji.show');
-
-
+// Authentication routes
 require __DIR__.'/auth.php';
 
+
+
+#Auth::routes();
+
+#Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
