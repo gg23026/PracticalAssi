@@ -13,11 +13,11 @@
                 <div class="card-body">
                     <p>{{ $comment->content }}</p>
                     @if($comment->image_path)
-                        <img src="{{ asset('storage/' . $comment->image_path) }}" alt="comment image" class="img-fluid">
+                        <img src="{{ asset('storage/' . $comment->image_path) }}" alt="Comment Image" style="max-width: 500px; max-height: 500px;">
                     @endif
                     <small>By: {{ $comment->user->name }}</small>
                     @auth
-                        @if(auth()->user()->id === $comment->user_id || auth()->user()->is_admin)
+                        @if(auth()->user()->id === $comment->user_id || auth()->user()->role_id == 1)
                             <a href="{{ route('comments.edit', $comment->id) }}">Edit</a>
                             <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" style="display:inline;">
                                 @csrf
@@ -31,7 +31,7 @@
         @endforeach
 
         @auth
-        <form action="{{ route('comment.store', ['type' => 'komanda', 'id' => $komanda->KomandasID]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('comment.store', ['type' => 'komanda', 'id' => $komanda->KomandasID]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="content">Add a comment:</label>
@@ -46,3 +46,5 @@
         @endauth
     </div>
 @endsection
+
+

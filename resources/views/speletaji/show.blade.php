@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Spēlētāja Lietotājvārds: {{ $speletajs->Lietotajvards }}</h1>
+        <h1>Spēlētāja Lietotājvārds: {{ $speletajs->lietotajvards }}</h1>
         <p>Vārds: {{ $speletajs->Vards }}</p>
         <p>Uzvārds: {{ $speletajs->Uzvards }}</p>
         <p>Komandas nosaukums: {{ $speletajs->komanda->Nosaukums }}</p>
@@ -14,11 +14,11 @@
                 <div class="card-body">
                     <p>{{ $comment->content }}</p>
                     @if($comment->image_path)
-                        <img src="{{ asset('storage/' . $comment->image_path) }}" alt="comment image" class="img-fluid">
+                        <img src="{{ asset('storage/' . $comment->image_path) }}" alt="Comment Image" style="max-width: 500px; max-height: 500px;">
                     @endif
                     <small>By: {{ $comment->user->name }}</small>
                     @auth
-                        @if(auth()->user()->id === $comment->user_id || auth()->user()->is_admin)
+                        @if(auth()->user()->id === $comment->user_id || auth()->user()->role_id == 1)
                             <a href="{{ route('comments.edit', $comment->id) }}">Edit</a>
                             <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" style="display:inline;">
                                 @csrf
@@ -32,8 +32,7 @@
         @endforeach
 
         @auth
-        <form action="{{ route('comment.store', ['type' => 'speletajs', 'id' => $speletajs->SpeletajsID]) }}" method="POST" enctype="multipart/form-data">
-
+            <form action="{{ route('comment.store', ['type' => 'speletajs', 'id' => $speletajs->SpeletajsID]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="content">Add a comment:</label>
