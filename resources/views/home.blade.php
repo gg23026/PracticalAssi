@@ -90,11 +90,13 @@
     </div>
     <div class="live-stream">
     <iframe
-            src="https://player.twitch.tv/?channel=ohnePixel&parent=http://practicalassi.test&muted=true"
-            height="360"
-            width="480"
-            allowfullscreen>
-        </iframe>
+                src="https://player.twitch.tv/?channel={{ $channelName }}&parent=yourdomain.com"
+                frameborder="0"
+                allowfullscreen="true"
+                scrolling="no"
+                height="400"
+                width="620">
+            </iframe>
     </div>
     <div class="text-center">
         <p>Latest News</p>

@@ -17,6 +17,13 @@ class CommentController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            if ($file->getSize() > 500 * 1024) { // 100KB
+                return back()->withErrors(['image' => 'The image size must be less than 100KB.']);
+            }
+        }
+
         $commentable = null;
 
         if ($type == 'komanda') {
@@ -41,22 +48,11 @@ class CommentController extends Controller
         return back();
     }
 
-    public function edit($id)
-    {
-        $comment = Comment::findOrFail($id);
-
-        if (Auth::id() !== $comment->user_id && Auth::user()->role_id != 1) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        return view('comments.edit', compact('comment'));
-    }
-
     public function update(Request $request, $id)
     {
         $comment = Comment::findOrFail($id);
 
-        if (Auth::id() !== $comment->user_id && Auth::user()->role_id != 1) {
+        if (Auth::id() !== $comment->user_id && !Auth::user()->is_admin) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -64,6 +60,13 @@ class CommentController extends Controller
             'content' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            if ($file->getSize() > 100 * 1024) { // 100KB
+                return back()->withErrors(['image' => 'The image size must be less than 100KB.']);
+            }
+        }
 
         $comment->content = $request->input('content');
 
@@ -88,7 +91,7 @@ class CommentController extends Controller
     {
         $comment = Comment::findOrFail($id);
 
-        if (Auth::id() !== $comment->user_id && Auth::user()->role_id != 1) {
+        if (Auth::id() !== $comment->user_id && !Auth::user()->is_admin) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -107,5 +110,6 @@ class CommentController extends Controller
         }
     }
 }
+
 
 

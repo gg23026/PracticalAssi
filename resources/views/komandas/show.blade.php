@@ -31,6 +31,15 @@
         @endforeach
 
         @auth
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form action="{{ route('comment.store', ['type' => 'komanda', 'id' => $komanda->KomandasID]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
@@ -46,5 +55,6 @@
         @endauth
     </div>
 @endsection
+
 
 
