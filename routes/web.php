@@ -34,13 +34,17 @@ Route::get('/speles', [SpelesController::class, 'index'])->name('speles.index');
 // Statistika routes
 Route::get('/statistika', [StatistikaController::class, 'index'])->name('statistika.index');
 
+Route::resource('komandas', KomandaController::class);
+Route::resource('speletaji', SpeletajsController::class);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('komandas', KomandaController::class);
-    Route::resource('speletaji', SpeletajsController::class);
+    Route::get('comment/{id}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+    Route::put('comment/{id}', [CommentController::class, 'update'])->name('comments.update');
+    Route::delete('comment/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('comment/{type}/{id}', [CommentController::class, 'store'])->name('comment.store');
 });
 
