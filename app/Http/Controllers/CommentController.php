@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -6,16 +7,15 @@ use App\Models\Comment;
 use App\Models\Komanda;
 use App\Models\Speletajs;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
 
 class CommentController extends Controller
 {
-    use AuthorizesRequests;
-
     public function store(Request $request, $type, $id)
     {
         $request->validate([
             'content' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $commentable = null;
@@ -30,36 +30,41 @@ class CommentController extends Controller
             $comment = new Comment();
             $comment->content = $request->input('content');
             $comment->user_id = Auth::id();
+
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('images', 'public');
+                $comment->image_path = $path;
+            }
+
             $commentable->comments()->save($comment);
         }
 
         return back();
     }
 
-    public function edit($id)
-    {
-        $comment = Comment::findOrFail($id);
-
-        if (Auth::id() !== $comment->user_id && Auth::user()->role_id != 1) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        return view('comments.edit', compact('comment'));
-    }
-
     public function update(Request $request, $id)
     {
         $comment = Comment::findOrFail($id);
 
-        if (Auth::id() !== $comment->user_id && Auth::user()->role_id != 1) {
+        if (Auth::id() !== $comment->user_id && !Auth::user()->is_admin) {
             abort(403, 'Unauthorized action.');
         }
 
         $request->validate([
             'content' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $comment->content = $request->input('content');
+
+        if ($request->hasFile('image')) {
+            if ($comment->image_path) {
+                Storage::disk('public')->delete($comment->image_path);
+            }
+            $path = $request->file('image')->store('images', 'public');
+            $comment->image_path = $path;
+        }
+
         $comment->save();
 
         if ($comment->commentable_type == 'App\Models\Komanda') {
@@ -73,8 +78,12 @@ class CommentController extends Controller
     {
         $comment = Comment::findOrFail($id);
 
-        if (Auth::id() !== $comment->user_id && Auth::user()->role_id != 1) {
+        if (Auth::id() !== $comment->user_id && !Auth::user()->is_admin) {
             abort(403, 'Unauthorized action.');
+        }
+
+        if ($comment->image_path) {
+            Storage::disk('public')->delete($comment->image_path);
         }
 
         $commentable_id = $comment->commentable_id;
