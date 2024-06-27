@@ -12,4 +12,9 @@ return [
     'register' => 'Reģistrēties',
     'logout' => 'Izlogoties',
     'language' => 'Valoda',
+    'WelcometoEsportsHome' => 'Laipni lūdzam Esports mājā',
+    'BannerImageHere' => 'Banera attēls šeit',
+    'LiveStreamHere' => 'Tiešraide šeit',
+    'LatestNews' => 'Jaunākās ziņas',
+    'Today\'stopic' => 'Šodienas tēma',
 ];

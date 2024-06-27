@@ -12,9 +12,15 @@ use App\Http\Controllers\StatistikaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\LanguageController;
+use Illuminate\Support\Facades\App;
 
-// Home route
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'lv'])) {
+        Session::put('locale', $locale);
+    }
+    return redirect()->back();
+})->name('lang.switch');
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
@@ -42,6 +48,8 @@ Route::get('/statistika', [StatistikaController::class, 'index'])->name('statist
 Route::resource('komandas', KomandaController::class);
 Route::resource('speletaji', SpeletajsController::class);
 
+Auth::routes();
+
 Route::middleware(['auth'])->group(function () {
     Route::get('comment/{id}/edit', [CommentController::class, 'edit'])->name('comments.edit');
     Route::put('comment/{id}', [CommentController::class, 'update'])->name('comments.update');
@@ -52,15 +60,12 @@ Route::middleware(['auth'])->group(function () {
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'lv'])) {
         Session::put('locale', $locale);
+        App::setLocale($locale);
     }
     return redirect()->back();
 });
 
 Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
-Route::get('/dashboard', function () {
-    return redirect('/');
-})->name('dashboard');
-
-// Authentication routes
 require __DIR__.'/auth.php';
+
