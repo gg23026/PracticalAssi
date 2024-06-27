@@ -14,8 +14,10 @@ use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\LanguageController;
 
+// Home route
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/', [HomeController::class, 'home']);
+Auth::routes();
 
 // Komandas routes
 Route::get('/komandas', [KomandaController::class, 'index'])->name('komandas.index');
@@ -40,10 +42,6 @@ Route::get('/statistika', [StatistikaController::class, 'index'])->name('statist
 Route::resource('komandas', KomandaController::class);
 Route::resource('speletaji', SpeletajsController::class);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware(['auth'])->group(function () {
     Route::get('comment/{id}/edit', [CommentController::class, 'edit'])->name('comments.edit');
     Route::put('comment/{id}', [CommentController::class, 'update'])->name('comments.update');
@@ -58,18 +56,11 @@ Route::get('lang/{locale}', function ($locale) {
     return redirect()->back();
 });
 
-#Route::post('/set-language', [LanguageController::class, 'setLanguage'])->name('set-language');
-#Route::middleware(['auth'])->group(function () {
- #   Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-#});
 Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
+Route::get('/dashboard', function () {
+    return redirect('/');
+})->name('dashboard');
 
 // Authentication routes
 require __DIR__.'/auth.php';
-
-
-
-#Auth::routes();
-
-#Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -48,11 +48,22 @@ class CommentController extends Controller
         return back();
     }
 
+    public function edit($id)
+    {
+        $comment = Comment::findOrFail($id);
+
+        if (Auth::id() !== $comment->user_id && Auth::user()->role_id != 1) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return view('comments.edit', compact('comment'));
+    }
+
     public function update(Request $request, $id)
     {
         $comment = Comment::findOrFail($id);
 
-        if (Auth::id() !== $comment->user_id && !Auth::user()->is_admin) {
+        if (Auth::id() !== $comment->user_id && Auth::user()->role_id != 1) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -91,7 +102,7 @@ class CommentController extends Controller
     {
         $comment = Comment::findOrFail($id);
 
-        if (Auth::id() !== $comment->user_id && !Auth::user()->is_admin) {
+        if (Auth::id() !== $comment->user_id && Auth::user()->role_id != 1) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -110,6 +121,8 @@ class CommentController extends Controller
         }
     }
 }
+
+
 
 
 

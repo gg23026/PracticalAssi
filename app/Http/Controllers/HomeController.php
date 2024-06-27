@@ -10,8 +10,13 @@ use App\Models\Macs;
 use App\Models\Speles;
 use App\Models\Statistika;
 
+
 class HomeController extends Controller
 {
+    public function index()
+    {
+        return view('home');
+    }
     public function home()
     {
         return view('home');
@@ -52,7 +57,9 @@ class HomeController extends Controller
         $statistika = Statistika::all();
         return view('statistika', compact('statistika'));
     }
+    
 }
+
 
 
 
