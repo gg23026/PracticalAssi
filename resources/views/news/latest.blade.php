@@ -17,45 +17,41 @@
 
 <nav class="bg-gray-800 p-4 shadow-lg sticky top-0">
     <div class="container mx-auto flex justify-between items-center">
-        <div class="flex">
-            <a href="{{ url('/') }}" class="text-white hover:text-gray-300 mx-2 font-bold">{{ __('messages.home') }}</a>
-            <a href="{{ url('/komandas') }}" class="text-white hover:text-gray-300 mx-2 font-bold">{{ __('messages.teams') }}</a>
-            <a href="{{ url('/speletaji') }}" class="text-white hover:text-gray-300 mx-2 font-bold">{{ __('messages.players') }}</a>
-            <a href="{{ url('/turniri') }}" class="text-white hover:text-gray-300 mx-2 font-bold">{{ __('messages.tournaments') }}</a>
-            <a href="{{ url('/maci') }}" class="text-white hover:text-gray-300 mx-2 font-bold">{{ __('messages.matches') }}</a>
-            <a href="{{ url('/speles') }}" class="text-white hover:text-gray-300 mx-2 font-bold">{{ __('messages.games') }}</a>
-            <a href="{{ url('/statistika') }}" class="text-white hover:text-gray-300 mx-2 font-bold">{{ __('messages.statistics') }}</a>
-            <a href="{{ url('/latest-news') }}" class="text-white hover:text-gray-300 mx-2 font-bold">Latest News</a> <!-- New Link -->
+        <div>
+            <a href="{{ url('/') }}" class="text-white hover:text-gray-300 mx-2">Mājas</a>
+            <a href="{{ url('/news') }}" class="text-white hover:text-gray-300 mx-2">Latest News</a>
         </div>
 
-        <div class="flex items-center">
+        <div>
             @guest
-                <a href="{{ route('login') }}" class="bg-gray-700 text-white hover:bg-gray-600 py-1 px-3 rounded mx-2 font-bold">{{ __('messages.login') }}</a>
-                <a href="{{ route('register') }}" class="bg-blue-600 text-white hover:bg-blue-500 py-1 px-3 rounded mx-2 font-bold">{{ __('messages.register') }}</a>
+                <a href="{{ route('login') }}" class="bg-gray-700 text-white hover:bg-gray-600 py-1 px-3 rounded mx-2">Login</a>
+                <a href="{{ route('register') }}" class="bg-blue-600 text-white hover:bg-blue-500 py-1 px-3 rounded mx-2">Register</a>
             @else
-                <a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}" class="text-white mx-2 font-bold">{{ Auth::user()->name }}</a>
+                <a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}" class="text-white mx-2">{{ Auth::user()->name }}</a>
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
-                    <button type="submit" class="bg-red-600 text-white hover:bg-red-500 py-1 px-3 rounded mx-2 font-bold">{{ __('messages.logout') }}</button>
+                    <button type="submit" class="bg-red-600 text-white hover:bg-red-500 py-1 px-3 rounded mx-2">Logout</button>
                 </form>
             @endguest
 
-            <a href="{{ url('lang/en') }}" class="text-white hover:text-gray-300 mx-2 font-bold">ENG</a>
-            <a href="{{ url('lang/lv') }}" class="text-white hover:text-gray-300 mx-2 font-bold">LV</a>
+            <a href="{{ url('lang/en') }}" class="text-white hover:text-gray-300 mx-2">ENG</a>
+            <a href="{{ url('lang/lv') }}" class="text-white hover:text-gray-300 mx-2">LV</a>
         </div>
     </div>
 </nav>
 
 <div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-6 text-center">Latest News</h1>
-    <div class="bg-gray-800 p-6 rounded mb-6">
-        <p>This is where the latest news will be displayed.</p>
-    </div>
+    <h1 class="text-3xl font-bold mb-6">Latest News</h1>
+    @foreach($news as $newsItem)
+        <div class="bg-gray-800 p-6 rounded mb-6">
+            <h2 class="text-2xl font-bold">
+                <a href="{{ route('news.show', $newsItem->id) }}" class="text-blue-500 hover:underline">{{ $newsItem->title }}</a>
+            </h2>
+            <p class="text-gray-400">{{ $newsItem->created_at->format('d-m-Y H:i') }}</p>
+            <p class="mt-4">{{ Str::limit($newsItem->content, 150) }}</p>
+        </div>
+    @endforeach
 </div>
-
-<footer class="bg-gray-700 p-4 mt-6 text-center text-gray-400">
-    {!! __('messages.footer') !!}
-</footer>
-
 </body>
 </html>
+

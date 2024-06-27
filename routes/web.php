@@ -76,6 +76,10 @@ Route::get('lang/{locale}', function ($locale) {
     }
     return redirect()->back();
 });
+Route::get('/news', [NewsController::class, 'latestNews'])->name('news.latest');
+Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
+
+Route::post('/comment/{type}/{id}', [CommentController::class, 'store'])->name('comment.store');
 
 
 

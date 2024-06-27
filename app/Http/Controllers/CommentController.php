@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Models\Komanda;
 use App\Models\Speletajs;
+use App\Models\News;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,7 +20,7 @@ class CommentController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            if ($file->getSize() > 500 * 1024) { // 100KB
+            if ($file->getSize() > 500 * 1024) {
                 return back()->withErrors(['image' => 'The image size must be less than 100KB.']);
             }
         }
@@ -30,6 +31,8 @@ class CommentController extends Controller
             $commentable = Komanda::find($id);
         } elseif ($type == 'speletajs') {
             $commentable = Speletajs::find($id);
+        } elseif ($type == 'news') {
+            $commentable = News::find($id);
         }
 
         if ($commentable) {
@@ -47,6 +50,7 @@ class CommentController extends Controller
 
         return back();
     }
+
 
     public function edit($id)
     {
@@ -95,6 +99,8 @@ class CommentController extends Controller
             return redirect()->route('komandas.show', $comment->commentable_id)->with('success', 'Comment updated successfully.');
         } elseif ($comment->commentable_type == 'App\Models\Speletajs') {
             return redirect()->route('speletaji.show', $comment->commentable_id)->with('success', 'Comment updated successfully.');
+        } elseif ($comment->commentable_type == 'App\Models\News') {
+            return redirect()->route('news.show', $comment->commentable_id)->with('success', 'Comment updated successfully.');
         }
     }
 
@@ -118,11 +124,8 @@ class CommentController extends Controller
             return redirect()->route('komandas.show', $commentable_id)->with('success', 'Comment deleted successfully.');
         } elseif ($commentable_type == 'App\Models\Speletajs') {
             return redirect()->route('speletaji.show', $commentable_id)->with('success', 'Comment deleted successfully.');
+        } elseif ($commentable_type == 'App\Models\News') {
+            return redirect()->route('news.show', $commentable_id)->with('success', 'Comment deleted successfully.');
         }
     }
 }
-
-
-
-
-
