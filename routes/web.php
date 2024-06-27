@@ -12,6 +12,8 @@ use App\Http\Controllers\StatistikaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\LanguageController;
+
 
 Route::get('/', [HomeController::class, 'home']);
 
@@ -55,6 +57,9 @@ Route::get('lang/{locale}', function ($locale) {
     }
     return redirect()->back();
 });
+
+Route::post('/set-language', [LanguageController::class, 'setLanguage'])->name('set-language');
+
 
 // Authentication routes
 require __DIR__.'/auth.php';

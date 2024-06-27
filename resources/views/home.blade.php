@@ -3,6 +3,18 @@
 <head>
     <title>Esports Home</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Laravel</title>
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+        <!-- Styles -->
+        <style>
+            /* Tailwind CSS styles here */
+        </style>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -60,49 +72,47 @@
         }
     </style>
 </head>
-<body>
-    
-    <div class="navbar">
-        <a href="{{ url('/') }}">Home</a>
-        <a href="{{ url('/komandas') }}">Komandas</a>
-        <a href="{{ url('/speletaji') }}">Spēlētāji</a>
-        <a href="{{ url('/turniri') }}">Turnīri</a>
-        <a href="{{ url('/maci') }}">Mači</a>
-        <a href="{{ url('/speles') }}">Spēles</a>
-        <a href="{{ url('/statistika') }}">Statistika</a>
-        @guest
-            <a href="{{ route('login') }}" class="btn btn-secondary">Login</a>
-            <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
-        @else
-            <a href="#" class="btn btn-secondary">{{ Auth::user()->name }}</a>
-            <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                @csrf
-                <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
-        @endguest
-    </div>
-    
+<body class="font-sans antialiased dark:bg-black dark:text-white/50">
+        <div class="navbar">
+            <a href="{{ url('/') }}">{{ __('messages.home') }}</a>
+            <a href="{{ url('/komandas') }}">{{ __('messages.teams') }}</a>
+            <a href="{{ url('/speletaji') }}">{{ __('messages.players') }}</a>
+            <a href="{{ url('/turniri') }}">{{ __('messages.tournaments') }}</a>
+            <a href="{{ url('/maci') }}">{{ __('messages.matches') }}</a>
+            <a href="{{ url('/speles') }}">{{ __('messages.games') }}</a>
+            <a href="{{ url('/statistika') }}">{{ __('messages.statistics') }}</a>
 
-    <h1 class="header">Welcome to Esports Home</h1>
-    <div class="banner">Banner Image Here</div>
-    <div class="text-center">
-        <p>Live Stream Here</p>
-    </div>
-    <div class="live-stream">
-    <iframe
-                src="https://player.twitch.tv/?channel={{ $channelName }}&parent=yourdomain.com"
-                frameborder="0"
-                allowfullscreen="true"
-                scrolling="no"
-                height="400"
-                width="620">
+            @guest
+                <a href="{{ route('login') }}" class="btn btn-secondary">{{ __('messages.login') }}</a>
+                <a href="{{ route('register') }}" class="btn btn-primary">{{ __('messages.register') }}</a>
+            @else
+                <a href="#" class="btn btn-secondary">{{ Auth::user()->name }}</a>
+                <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">{{ __('messages.logout') }}</button>
+                </form>
+            @endguest
+
+            <a href="{{ url('lang/en') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">English</a>
+            <a href="{{ url('lang/lv') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">Latvian</a>
+        </div>
+
+        <h1 class="header">Welcome to Esports Home</h1>
+        <div class="banner">Banner Image Here</div>
+        <div class="text-center">
+            <p>Live Stream Here</p>
+            <iframe
+                src="https://player.twitch.tv/?channel=stewie2k&parent=http://practicalassi.test"
+                height="480"
+                width="100%"
+                allowfullscreen>
             </iframe>
-    </div>
-    <div class="text-center">
-        <p>Latest News</p>
-        <p>Today's topic</p>
-    </div>
-</body>
+        <div class="live-stream"></div>
+        <div class="text-center">
+            <p>Latest News</p>
+            <p>Today's topic</p>
+        </div>
+    </body>
 </html>
 
 
