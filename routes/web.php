@@ -14,6 +14,10 @@ use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\App;
 
+Route::get('/dashboard', function () {
+    return redirect('/');
+})->name('dashboard');
+
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'lv'])) {
         Session::put('locale', $locale);
@@ -21,7 +25,12 @@ Route::get('lang/{locale}', function ($locale) {
     return redirect()->back();
 })->name('lang.switch');
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return view('home');
+})->name('home');
+
+Route::post('/comments/{type}/{id}', [CommentController::class, 'store'])->name('comment.store');
+
 
 Auth::routes();
 
@@ -64,6 +73,8 @@ Route::get('lang/{locale}', function ($locale) {
     }
     return redirect()->back();
 });
+
+
 
 Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
