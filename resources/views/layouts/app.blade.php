@@ -20,7 +20,7 @@
         <a href="{{ route('login') }}" class="btn btn-secondary">{{ __('messages.login') }}</a>
         <a href="{{ route('register') }}" class="btn btn-primary">{{ __('messages.register') }}</a>
     @else
-        <a href="#" class="btn btn-secondary">{{ Auth::user()->name }}</a>
+    <a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">{{ Auth::user()->name }}</a>
         <form action="{{ route('logout') }}" method="POST" style="display:inline;">
             @csrf
             <button type="submit" class="btn btn-danger">{{ __('messages.logout') }}</button>

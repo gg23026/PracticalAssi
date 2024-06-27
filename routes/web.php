@@ -58,7 +58,11 @@ Route::get('lang/{locale}', function ($locale) {
     return redirect()->back();
 });
 
-Route::post('/set-language', [LanguageController::class, 'setLanguage'])->name('set-language');
+#Route::post('/set-language', [LanguageController::class, 'setLanguage'])->name('set-language');
+#Route::middleware(['auth'])->group(function () {
+ #   Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+#});
+Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
 
 // Authentication routes
