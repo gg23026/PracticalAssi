@@ -78,8 +78,8 @@ class CommentController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            if ($file->getSize() > 100 * 1024) { // 100KB
-                return back()->withErrors(['image' => 'The image size must be less than 100KB.']);
+            if ($file->getSize() > 500 * 1024) { // 100KB
+                return back()->withErrors(['image' => 'The image size must be less than 500KB.']);
             }
         }
 

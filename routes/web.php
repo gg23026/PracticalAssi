@@ -19,7 +19,7 @@ Route::get('/dashboard', function () {
     return redirect('/');
 })->name('dashboard');
 
-Route::get('/latest-news', [NewsController::class, 'latestNews'])->name('latest-news');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'lv'])) {
@@ -76,7 +76,7 @@ Route::get('lang/{locale}', function ($locale) {
     }
     return redirect()->back();
 });
-Route::get('/news', [NewsController::class, 'latestNews'])->name('news.latest');
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');
 Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
 
 Route::post('/comment/{type}/{id}', [CommentController::class, 'store'])->name('comment.store');
