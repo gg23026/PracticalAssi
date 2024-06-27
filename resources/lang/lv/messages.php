@@ -16,5 +16,7 @@ return [
     'BannerImageHere' => 'Banera attēls šeit',
     'LiveStreamHere' => 'Tiešraide šeit',
     'LatestNews' => 'Jaunākās ziņas',
-    'Today\'stopic' => 'Šodienas tēma',
+    'TodaysTopic' => 'Šodienas tēma',
+    'footer' => '&copy; 2024 Esports Home. Visas tiesības aizsargātas. Izveidoja Gustavs un Mārcis.'
 ];
+

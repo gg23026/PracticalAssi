@@ -16,5 +16,6 @@ return [
     'BannerImageHere' => 'Banner Image Here',
     'LiveStreamHere' => 'Live Stream Here',
     'LatestNews' => 'Latest News',
-    'Today\'stopic' => 'Today\'s topic',
+    'TodaysTopic' => 'Today\'s topic',
+    'footer' => '&copy; 2024 Esports Home. All rights reserved. Made by Gustavs && Mārcis.'
 ];
