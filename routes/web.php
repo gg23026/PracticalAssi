@@ -11,6 +11,7 @@ use App\Http\Controllers\SpelesController;
 use App\Http\Controllers\StatistikaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CommentController;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', [HomeController::class, 'home']);
 
@@ -46,6 +47,13 @@ Route::middleware(['auth'])->group(function () {
     Route::put('comment/{id}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('comment/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('comment/{type}/{id}', [CommentController::class, 'store'])->name('comment.store');
+});
+
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'lv'])) {
+        Session::put('locale', $locale);
+    }
+    return redirect()->back();
 });
 
 // Authentication routes

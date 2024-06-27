@@ -164,6 +164,15 @@
 
                     <footer class="py-16 text-center text-sm text-black dark:text-white/70">
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                        <div class="mt-4">
+                            <span>{{ __('messages.language') }}:</span>
+                            <a href="{{ url('lang/en') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                {{ __('messages.english') }}
+                            </a>
+                            <a href="{{ url('lang/lv') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                {{ __('messages.latvian') }}
+                            </a>
+                        </div>
                     </footer>
                 </div>
             </div>
