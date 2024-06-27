@@ -35,14 +35,7 @@
     <div class="container">
         @yield('content')
     </div>
-    <footer class="py-4 bg-gray-800 text-white text-center">
-            Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-            <div class="mt-4">
-                <span>{{ __('messages.language') }}:</span>
-                <a href="{{ url('lang/en') }}" class="mx-2 text-blue-500 hover:underline">English</a> |
-                <a href="{{ url('lang/lv') }}" class="mx-2 text-blue-500 hover:underline">Latvian</a>
-            </div>
-        </footer>
+
 </body>
 </html>
 
