@@ -102,7 +102,7 @@
         <div class="text-center">
             <p>Live Stream Here</p>
             <iframe
-                src="https://player.twitch.tv/?channel=stewie2k&parent=http://practicalassi.test"
+                src="https://player.twitch.tv/?channel=stewie2k&parent=https://gg23026.github.io"
                 height="480"
                 width="100%"
                 allowfullscreen>
