@@ -13,10 +13,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\App;
+use App\Http\Controllers\NewsController;
 
 Route::get('/dashboard', function () {
     return redirect('/');
 })->name('dashboard');
+
+Route::get('/latest-news', [NewsController::class, 'latestNews'])->name('latest-news');
 
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'lv'])) {

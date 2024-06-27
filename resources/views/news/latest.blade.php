@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ __('messages.home') }}</title>
+    <title>Latest News</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,21 +46,12 @@
     </div>
 </nav>
 
-
 <div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-6 text-center">{{ __('messages.WelcometoEsportsHome') }}</h1>
-    <div class="banner mb-6 p-6 bg-gray-800 rounded">
-    <img src="{{ asset('madrilla.jpeg') }}" alt="OHNEPIXEL MA DRILLA Banner" class="mx-auto rounded" style="width: 1200px; height: 400px;">
+    <h1 class="text-3xl font-bold mb-6 text-center">Latest News</h1>
+    <div class="bg-gray-800 p-6 rounded mb-6">
+        <p>This is where the latest news will be displayed.</p>
     </div>
-    <div class="text-center mb-6">
-        <iframe
-            src="https://www.youtube.com/embed/gboz4HSgV4U"
-            height="480"
-            width="100%"
-            allowfullscreen
-            class="rounded">
-        </iframe>
-    </div>
+</div>
 
 <footer class="bg-gray-700 p-4 mt-6 text-center text-gray-400">
     {!! __('messages.footer') !!}
@@ -68,7 +59,3 @@
 
 </body>
 </html>
-
-
-
-
