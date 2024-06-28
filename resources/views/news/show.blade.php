@@ -12,6 +12,22 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Tailwind CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .reply {
+            margin-left: 20px;
+            background-color: #4b5563; /* Darker gray */
+        }
+    </style>
+    <script>
+        function toggleReplyForm(commentId) {
+            var form = document.getElementById('reply-form-' + commentId);
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body class="bg-gray-900 text-white">
 
@@ -81,6 +97,53 @@
                         </div>
                     @endif
                 @endauth
+                @auth
+                    <!-- Reply button and form -->
+                    <div class="mt-2">
+                        <button onclick="toggleReplyForm({{ $comment->id }})" class="text-blue-500 hover:text-blue-300">Reply</button>
+                        <form id="reply-form-{{ $comment->id }}" action="{{ route('comment.store', ['type' => 'news', 'id' => $newsItem->id]) }}" method="POST" enctype="multipart/form-data" class="hidden mt-2 bg-gray-800 p-4 rounded">
+                            @csrf
+                            <input type="hidden" name="parent_id" value="{{ $comment->id }}">
+                            <div class="form-group mb-4">
+                                <label for="content-{{ $comment->id }}" class="block text-white mb-2">Add a reply:</label>
+                                <textarea name="content" id="content-{{ $comment->id }}" class="w-full p-2 rounded bg-gray-700 border border-gray-600 text-white"></textarea>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="image-{{ $comment->id }}" class="block text-white mb-2">Add an image (optional):</label>
+                                <input type="file" name="image" id="image-{{ $comment->id }}" class="w-full p-2 rounded bg-gray-700 border border-gray-600 text-white">
+                            </div>
+                            <button type="submit" class="bg-blue-600 text-white hover:bg-blue-500 py-2 px-4 rounded">Submit</button>
+                        </form>
+                    </div>
+                @endauth
+
+                <!-- Display replies -->
+                @foreach($comment->replies as $reply)
+                    <div class="reply bg-gray-600 p-3 rounded mt-3">
+                        <p>{{ $reply->content }}</p>
+                        @if($reply->image_path)
+                            <div style="max-width: 300px; max-height: 300px; overflow: hidden;">
+                                <img src="{{ asset('storage/' . $reply->image_path) }}" alt="Reply Image" style="width: 100%; height: auto;">
+                            </div>
+                        @endif
+                        <small class="block mt-2 text-gray-400">
+                            Reply to: {{ $comment->user->name }}<br>
+                            By: <a href="{{ route('profile.show', ['id' => $reply->user->id]) }}" class="text-blue-500 hover:text-blue-300">{{ $reply->user->name }}</a>
+                        </small>
+                        @auth
+                            @if(auth()->user()->id === $reply->user_id || auth()->user()->role_id == 1)
+                                <div class="mt-2">
+                                    <a href="{{ route('comments.edit', $reply->id) }}" class="text-blue-500 hover:text-blue-300">Edit</a>
+                                    <form action="{{ route('comments.destroy', $reply->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-500 hover:text-red-300">Delete</button>
+                                    </form>
+                                </div>
+                            @endif
+                        @endauth
+                    </div>
+                @endforeach
             </div>
         @endforeach
     </div>
@@ -112,6 +175,3 @@
 </div>
 </body>
 </html>
-
-</html>
-

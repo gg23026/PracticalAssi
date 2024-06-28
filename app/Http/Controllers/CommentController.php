@@ -39,15 +39,16 @@ class CommentController extends Controller
             $comment = new Comment();
             $comment->content = $request->input('content');
             $comment->user_id = Auth::id();
-
+            $comment->parent_id = $request->input('parent_id', null);
+    
             if ($request->hasFile('image')) {
                 $path = $request->file('image')->store('images', 'public');
                 $comment->image_path = $path;
             }
-
+    
             $commentable->comments()->save($comment);
         }
-
+    
         return back();
     }
 
