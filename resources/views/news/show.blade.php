@@ -17,6 +17,13 @@
             margin-left: 20px;
             background-color: #4b5563; /* Darker gray */
         }
+
+        .center-img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
     </style>
     <script>
         function toggleReplyForm(commentId) {
@@ -41,7 +48,7 @@
             <a href="{{ url('/maci') }}" class="text-white hover:text-gray-300 mx-2 font-bold">{{ __('messages.matches') }}</a>
             <a href="{{ url('/speles') }}" class="text-white hover:text-gray-300 mx-2 font-bold">{{ __('messages.games') }}</a>
             <a href="{{ url('/statistika') }}" class="text-white hover:text-gray-300 mx-2 font-bold">{{ __('messages.statistics') }}</a>
-            <a href="{{ url('/news') }}" class="text-white hover:text-gray-300 mx-2 font-bold">Latest News</a> <!-- New Link -->
+            <a href="{{ url('/news') }}" class="text-white hover:text-gray-300 mx-2 font-bold">Latest News</a>
         </div>
 
         <div class="flex items-center">
@@ -67,7 +74,68 @@
         <h1 class="text-3xl font-bold">{{ $newsItem->title }}</h1>
         <p class="text-gray-400">{{ $newsItem->created_at->format('d-m-Y H:i') }}</p>
         <div class="mt-4 text-lg">
-            {{ $newsItem->content }}
+        <img src="https://img-cdn.hltv.org/gallerypicture/CnZKhJF9MW74cqyIg2HcPh.jpg?auto=compress&fm=avif&ixlib=java-2.1.0&q=75&w=800&s=d4d91d4d6c0568b219681879d2d24aea" alt="" class="center-img" style="width: 800px; height: 400px;">
+            <!-- News Content -->
+            <p>Other changes include a new MVP panel in-game and an adjustment to the number of wins needed to get a rank in matchmaking.</p>
+            <p>Valve has shipped a new update for Counter-Strike 2 that adds five community-made maps, the first non-Valve ones to be officially added to the game since its release and update from CS:GO.</p>
+            <p>Thera, previously released in CS:GO as "Santorini," is made by one of the designers of Cache, Shawn "FMPONE" Snelling. It releases in Competitive, Casual, and Deathmatch alongside Mills, made by Tuscan and Shipped creator "catfood".</p>
+            <p>Memento and Assembly have been added to Wingman, and Pool Day — a CS2 remake of the community-made CS 1.6 map fy_pool_day — joins the Arms Race pool.</p>
+            <p>Minimal changes have been shipped alongside the release of community maps, despite anticipation being high among fans and the community for an Operation or a larger content drop to commemorate the 25th anniversary of Counter-Strike.</p>
+            <p>The primary highlight is an update to the MVP panel in all game modes and the "all-new animated MVP panels" for Premier matches, alongside "several new MVP conditions" and adjustments to previous MVP rules.</p>
+            <p>The number of wins needed to see your map-specific skill group in (non-Premier) competitive matchmaking has been reduced from ten to two, and a few video settings have been added, tweaked, or removed.</p>
+            <p>The complete patch notes can be found below:</p>
+            <h3 class="text-xl font-bold">[ MAPS ]</h3>
+            <ul class="list-disc list-inside">
+                <li>Community Maps</li>
+                <ul class="list-disc list-inside">
+                    <li>Added community maps Thera and Mills to Competitive, Casual, and Deathmatch map groups</li>
+                    <li>Added community maps Memento and Assembly to the Wingman map pool</li>
+                    <li>Added community map Pool Day to the Arms Race map pool</li>
+                </ul>
+                <li>Nuke</li>
+                <ul class="list-disc list-inside">
+                    <li>Fixed c4 stuck spots</li>
+                </ul>
+                <li>Ancient</li>
+                <ul class="list-disc list-inside">
+                    <li>Fixed c4 stuck spots, holes in the world, and non-solids causing problems</li>
+                </ul>
+                <li>Vertigo</li>
+                <ul class="list-disc list-inside">
+                    <li>Fixed c4 stuck spots and clipping</li>
+                </ul>
+                <li>Anubis</li>
+                <ul class="list-disc list-inside">
+                    <li>Fixes for grenade collision and clipping</li>
+                </ul>
+            </ul>
+            <h3 class="text-xl font-bold">[ UI ]</h3>
+            <ul class="list-disc list-inside">
+                <li>Updated the MVP panel in all game modes</li>
+                <li>Added all-new animated MVP panels to Premier matches</li>
+                <li>Added several new MVP conditions and adjusted prior MVP rules</li>
+            </ul>
+            <h3 class="text-xl font-bold">[ GAMEPLAY ]</h3>
+            <ul class="list-disc list-inside">
+                <li>In Competitive Matchmaking, per-map skill groups are now revealed after you earn two wins on a map.</li>
+            </ul>
+            <h3 class="text-xl font-bold">[ VIDEO SETTINGS ]</h3>
+            <ul class="list-disc list-inside">
+                <li>Settings Recommendations</li>
+                <ul class="list-disc list-inside">
+                    <li>Added a Settings Recommendation popup if your display's refresh rate is set below its maximum at startup. Using your display's highest refresh rate is generally recommended.</li>
+                    <li>Added a Settings Recommendation popup if NVIDIA G-Sync support is detected but not enabled at startup. Using G-Sync is generally recommended if your system supports it.</li>
+                    <li>Added a Settings Recommendation popup if NVIDIA G-Sync is enabled but not V-Sync and/or NVIDIA Reflex. It is generally recommended to enable all three settings together when they are available. Note that applying these settings will limit your frame rate to your display's refresh rate or slightly lower, which is usually the smoothest-looking and lowest input latency settings combination. See here for technical details.</li>
+                </ul>
+                <li>Removed "Main Menu Background Scenery" and "Item Inspect Background Scenery" settings from the Video Settings page. These settings are still available on the Main Menu and in the Item Inspect screens respectively.</li>
+                <li>The "Refresh Rate" setting now shows your display's current refresh rate in Windowed and Fullscreen Windowed modes.</li>
+                <li>Removed the "Laptop Power Savings" setting which has never actually been configurable in CS2.</li>
+                <li>Added a "Frame Pacing" section to the Advanced Video settings page.</li>
+                <li>Added an "NVIDIA G-Sync" row to the Frame Pacing section which tells you whether or not G-Sync is active with your current display settings. This row may be hidden if you're using the Vulkan renderer or if you're not using an NVIDIA graphics card.</li>
+                <li>Added "Maximum FPS In Game" and "Maximum FPS In Menus" sliders to the Frame Pacing section. These control the fps_max and fps_max_ui convars respectively.</li>
+                <li>Increased the default "Maximum FPS In Menus" setting from 120 FPS to 200 FPS.</li>
+                <li>The Advanced Video visual preview now uses the "In Game" maximum FPS instead of the "In Menus" maximum.</li>
+            </ul>
         </div>
     </div>
 
