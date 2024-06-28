@@ -12,6 +12,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Tailwind CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        table th {
+            color: red;
+        }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
 

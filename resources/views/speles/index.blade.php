@@ -12,6 +12,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Tailwind CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        table th {
+            color: red;
+        }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
 
@@ -52,7 +57,7 @@
         <thead>
             <tr>
                 <th class="p-3 text-left">Spēles ID</th>
-                <th class="p-3 text-left">Nosaukums</th>
+                <th class="p-3 text-left">Lietotājvārds</th>
                 <th class="p-3 text-left">Eliminations</th>
                 <th class="p-3 text-left">Deaths</th>
             </tr>
@@ -61,11 +66,9 @@
             @foreach ($speles as $spele)
                 <tr class="border-t border-gray-700">
                     <td class="p-3">{{ $spele->SpelesID }}</td>
-                    <td class="p-3">{{ $spele->Nosaukums }}</td>
+                    <td class="p-3">{{ optional($spele->Speletajs)->Lietotajvards }} </td>
                     <td class="p-3">{{ $spele->Elimination }}</td>
                     <td class="p-3">{{ $spele->Death }}</td>
-                    <td class="p-3">{{ $spele->created_at }}</td>
-                    <td class="p-3">{{ $spele->updated_at }}</td>
                 </tr>
             @endforeach
         </tbody>

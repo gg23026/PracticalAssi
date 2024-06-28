@@ -16,8 +16,9 @@ class Speles extends Model
         return $this->belongsTo(Macs::class, 'MacaID', 'MacaID');
     }
 
+
     public function speletajs()
     {
-        return $this->belongsTo(Speletajs::class, 'SpeletajsID', 'SpeletajsID');
+        return $this->belongsTo(Speletajs::class, 'SpeletajsID');
     }
 }

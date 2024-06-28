@@ -9,7 +9,7 @@ class SpelesController extends Controller
 {
     public function index()
     {
-        $speles = Speles::all();
+        $speles = Speles::with('speletajs')->get();
         return view('speles.index', compact('speles'));
     }
 }

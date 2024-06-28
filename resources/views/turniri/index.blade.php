@@ -12,6 +12,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Tailwind CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        table th {
+            color: red;
+        }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
 
@@ -58,7 +63,7 @@
             <input type="date" id="date_to" name="date_to" class="w-full p-2 rounded bg-gray-700 border border-gray-600 text-white" value="{{ request('date_to') }}">
         </div>
         <div class="form-group mb-4">
-            <label for="valsts" class="block text-white mb-2">Valsts</label>
+            <label for="valsts" class="block text-white mb-2">Atrašanas Vieta</label>
             <input type="text" id="valsts" name="valsts" class="w-full p-2 rounded bg-gray-700 border border-gray-600 text-white" value="{{ request('valsts') }}">
         </div>
         <button type="submit" class="bg-blue-600 text-white hover:bg-blue-500 py-2 px-4 rounded">Filtrēt</button>
@@ -70,18 +75,16 @@
                 <th class="p-3 text-left">Turnīra ID</th>
                 <th class="p-3 text-left">Nosaukums</th>
                 <th class="p-3 text-left">Datums</th>
-                <th class="p-3 text-left">Valsts</th>
-                <th class="p-3 text-left">Balva</th>
+                <th class="p-3 text-left">Atrašanas Vieta</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($turniri as $turnirs)
                 <tr class="border-t border-gray-700">
-                    <td class="p-3">{{ $turnirs->TurnirsID }}</td>
+                    <td class="p-3">{{ $turnirs->TurniraID }}</td>
                     <td class="p-3">{{ $turnirs->Nosaukums }}</td>
                     <td class="p-3">{{ $turnirs->Datums }}</td>
-                    <td class="p-3">{{ $turnirs->Valsts }}</td>
-                    <td class="p-3">{{ $turnirs->Balva }}</td>
+                    <td class="p-3">{{ $turnirs->AtrašanasVieta }}</td>
                 </tr>
             @endforeach
         </tbody>

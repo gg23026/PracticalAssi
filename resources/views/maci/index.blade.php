@@ -12,6 +12,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Tailwind CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        table th {
+            color: red;
+        }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
 
@@ -63,7 +68,6 @@
                 <th class="p-3 text-left">Komanda 1</th>
                 <th class="p-3 text-left">Komanda 2</th>
                 <th class="p-3 text-left">Rezultāts</th>
-                <th class="p-3 text-left">Datums</th>
             </tr>
         </thead>
         <tbody>
@@ -73,7 +77,6 @@
                     <td class="p-3">{{ $macs->komanda1->Nosaukums }}</td>
                     <td class="p-3">{{ $macs->komanda2->Nosaukums }}</td>
                     <td class="p-3">{{ $macs->Rezultats }}</td>
-                    <td class="p-3">{{ $macs->Datums }}</td>
                 </tr>
             @endforeach
         </tbody>

@@ -28,6 +28,10 @@ class Speletajs extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+    public function spele()
+    {
+        return $this->hasMany(Speles::class, 'SpeletajsID');
+    }
 }
 
 
